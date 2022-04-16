@@ -8,8 +8,6 @@ namespace Finance_App
 {
     public partial class CategoriesForm : Form
     {
-        DataStore DataStore = Variables.dataStore;
-
         public CategoriesForm()
         {
             InitializeComponent();

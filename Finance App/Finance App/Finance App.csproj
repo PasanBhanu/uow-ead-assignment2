@@ -71,6 +71,8 @@
       <DependentUpon>AddTransactionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Api\CategoriesApiClient.cs" />
+    <Compile Include="Api\HealthApiClient.cs" />
+    <Compile Include="Api\ReportsApiClient.cs" />
     <Compile Include="Api\TransactionsApiClient.cs" />
     <Compile Include="CategoriesForm.cs">
       <SubType>Form</SubType>
@@ -115,6 +117,7 @@
     <Compile Include="REST\BaseResponse.cs" />
     <Compile Include="REST\CategoriesResponse.cs" />
     <Compile Include="REST\CategoryResponse.cs" />
+    <Compile Include="REST\ReportResponse.cs" />
     <Compile Include="REST\TransactionResponse.cs" />
     <Compile Include="REST\TransactionsResponse.cs" />
     <Compile Include="Variables.cs" />

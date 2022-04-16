@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Finance_App_Service.REST
+namespace Finance_App.REST
 {
-    public class ReportResponse : BaseResponse
+    internal class ReportResponse : BaseResponse
     {
         public class DailyRecord
         {
