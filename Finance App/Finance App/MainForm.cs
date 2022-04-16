@@ -85,44 +85,49 @@ namespace Finance_App
             TransactionsApiClient client = new TransactionsApiClient();
 
             listTransactions.Items.Clear();
-            foreach (Transaction transaction in client.GetTransactions())
+            Transaction[] transactions = client.GetTransactions();
+            if (transactions != null)
             {
-                string[] listItem = new string[6];
-                listItem[0] = transaction.Id.ToString();
-                listItem[1] = transaction.Date.ToString("d");
-                listItem[2] = transaction.Description.ToString();
-                listItem[3] = transaction.Category.Title.ToString();
-                listItem[4] = transaction.Type.ToString();
-                listItem[5] = transaction.Amount.ToString();
-
-                ListViewItem item = new ListViewItem(listItem);
-                listTransactions.Items.Add(item);
-
-                // Calculate statistics
-                if (transaction.Date == today)
+                foreach (Transaction transaction in transactions)
                 {
-                    if (transaction.Type.ToString() == "Income")
-                    {
-                        totalDailyIncome += double.Parse(transaction.Amount.ToString());
-                    }
-                    else
-                    {
-                        totalDailyExpense += double.Parse(transaction.Amount.ToString());
-                    }
-                }
+                    string[] listItem = new string[6];
+                    listItem[0] = transaction.Id.ToString();
+                    listItem[1] = transaction.Date.ToString("d");
+                    listItem[2] = transaction.Description.ToString();
+                    listItem[3] = transaction.Category.Title.ToString();
+                    listItem[4] = transaction.Type.ToString();
+                    listItem[5] = transaction.Amount.ToString();
 
-                if (transaction.Date >= weekStart)
-                {
-                    if (transaction.Type.ToString() == "Expense")
+                    ListViewItem item = new ListViewItem(listItem);
+                    listTransactions.Items.Add(item);
+
+                    // Calculate statistics
+                    if (transaction.Date == today)
                     {
-                        totalWeeklyIncome += double.Parse(transaction.Amount.ToString());
+                        if (transaction.Type.ToString() == "Income")
+                        {
+                            totalDailyIncome += double.Parse(transaction.Amount.ToString());
+                        }
+                        else
+                        {
+                            totalDailyExpense += double.Parse(transaction.Amount.ToString());
+                        }
                     }
-                    else
+
+                    if (transaction.Date >= weekStart)
                     {
-                        totalWeeklyExpense += double.Parse(transaction.Amount.ToString());
+                        if (transaction.Type.ToString() == "Expense")
+                        {
+                            totalWeeklyIncome += double.Parse(transaction.Amount.ToString());
+                        }
+                        else
+                        {
+                            totalWeeklyExpense += double.Parse(transaction.Amount.ToString());
+                        }
                     }
                 }
             }
+            
             lblTotalDailyExpense.Text = totalDailyExpense.ToString();
             lblTotalDailyIncome.Text = totalDailyIncome.ToString();
             lblTotalWeeklyIncome.Text = totalWeeklyIncome.ToString();

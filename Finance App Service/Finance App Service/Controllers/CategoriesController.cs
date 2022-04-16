@@ -110,8 +110,8 @@ namespace Finance_App_Service.Controllers
             BaseResponse response = new BaseResponse();
             if (category != null)
             {
-                int existingCategoryCount = _applicationDbCotext.Transactions.Where(c => c.Category.Id == id).Count();
-                if (existingCategoryCount > 0)
+                int existingTransactionsCount = _applicationDbCotext.Transactions.Where(c => c.Category.Id == id).Count();
+                if (existingTransactionsCount > 0)
                 {
                     response.Status = "error";
                     response.Message = "This category has transactions. Delete not permitted!";

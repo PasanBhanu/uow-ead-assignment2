@@ -121,6 +121,8 @@
     <Compile Include="REST\TransactionResponse.cs" />
     <Compile Include="REST\TransactionsResponse.cs" />
     <Compile Include="Variables.cs" />
+    <Compile Include="Xml\CategoryStore.cs" />
+    <Compile Include="Xml\TransactionStore.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
