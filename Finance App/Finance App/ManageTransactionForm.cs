@@ -53,6 +53,7 @@ namespace Finance_App
             transaction.Type = cmbTransactionType.SelectedItem.ToString();
             transaction.CategoryId = categories[cmbCategory.Text].Id;
 
+            // Api call
             TransactionsApiClient client = new TransactionsApiClient();
             BaseResponse response = client.UpdateTransaction(transaction);
             if (response == null)

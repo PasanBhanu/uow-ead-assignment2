@@ -8,8 +8,6 @@ namespace Finance_App
 {
     public partial class AddCategoryForm : Form
     {
-        DataStore DataStore = Variables.dataStore;
-
         public AddCategoryForm()
         {
             InitializeComponent();
@@ -29,6 +27,7 @@ namespace Finance_App
             category.Title = txtCategoryName.Text;
             category.Type = cmbCategoryType.SelectedItem.ToString();
 
+            // Api call
             CategoriesApiClient client = new CategoriesApiClient();
             BaseResponse response = client.CreateCategory(category);
             if (response == null)

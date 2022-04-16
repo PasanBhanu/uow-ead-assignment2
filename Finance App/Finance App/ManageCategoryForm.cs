@@ -2,13 +2,6 @@
 using Finance_App.Models;
 using Finance_App.REST;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Finance_App
@@ -42,6 +35,7 @@ namespace Finance_App
             category.Title = txtCategoryName.Text;
             category.Type = cmbCategoryType.SelectedItem.ToString();
 
+            // Api call
             CategoriesApiClient client = new CategoriesApiClient();
             BaseResponse response = client.UpdateCategory(category);
             if (response == null)
@@ -61,7 +55,6 @@ namespace Finance_App
                     MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Close();
                 }
-
             }
         }
     }

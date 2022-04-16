@@ -42,6 +42,7 @@ namespace Finance_App
             DialogResult dialogResult = MessageBox.Show("Are you sure do you want to delete this transaction?", "Simply Finance App", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
+                // Api call
                 TransactionsApiClient client = new TransactionsApiClient();
                 BaseResponse response = client.DeleteTransaction(id);
                 if (response == null)
@@ -80,6 +81,7 @@ namespace Finance_App
             double totalWeeklyIncome = 0;
             double totalWeeklyExpense = 0;
 
+            // Get all transactions
             TransactionsApiClient client = new TransactionsApiClient();
 
             listTransactions.Items.Clear();
@@ -96,7 +98,7 @@ namespace Finance_App
                 ListViewItem item = new ListViewItem(listItem);
                 listTransactions.Items.Add(item);
 
-                
+                // Calculate statistics
                 if (transaction.Date == today)
                 {
                     if (transaction.Type.ToString() == "Income")

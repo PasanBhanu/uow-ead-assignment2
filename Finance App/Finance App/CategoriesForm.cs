@@ -36,6 +36,7 @@ namespace Finance_App
         {
             int id = int.Parse(listCategories.SelectedItems[0].SubItems[0].Text);
 
+            // Api call
             CategoriesApiClient client = new CategoriesApiClient();
             BaseResponse response = client.DeleteCategory(id);
             if (response == null)

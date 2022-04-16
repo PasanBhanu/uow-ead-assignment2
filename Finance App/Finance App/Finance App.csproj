@@ -79,14 +79,6 @@
       <DependentUpon>CategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
-    <Compile Include="DataStore.cs">
-      <DependentUpon>DataStore.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataStore.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataStore.xsd</DependentUpon>
-    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,17 +154,6 @@
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DataStore.xsc">
-      <DependentUpon>DataStore.xsd</DependentUpon>
-    </None>
-    <None Include="DataStore.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataStore.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataStore.xss">
-      <DependentUpon>DataStore.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

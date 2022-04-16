@@ -1,11 +1,7 @@
 ﻿using Finance_App.Models;
 using Finance_App.REST;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Finance_App.Api
 {

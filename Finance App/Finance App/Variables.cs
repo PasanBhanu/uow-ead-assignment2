@@ -8,6 +8,6 @@ namespace Finance_App
 {
     internal static class Variables
     {
-        public static DataStore dataStore = new DataStore();
+
     }
 }
