@@ -1,0 +1,62 @@
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.AssemblyReference.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.AssemblyInfoInputs.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.AssemblyInfo.cs
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.CoreCompileInputs.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.MvcApplicationPartsAssemblyInfo.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\appsettings.json
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.exe
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.deps.json
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.runtimeconfig.json
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.runtimeconfig.dev.json
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.pdb
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Humanizer.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\staticwebassets\Finance App Service.StaticWebAssets.Manifest.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.RazorTargetAssemblyInfo.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.CopyComplete
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.pdb
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.genruntimeconfig.cache
