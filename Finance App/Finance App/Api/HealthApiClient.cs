@@ -10,25 +10,33 @@ namespace Finance_App.Api
         {
             bool health = false;
 
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                var responseTask = client.GetAsync("health");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    var readTask = result.Content.ReadAsAsync<BaseResponse>();
-                    readTask.Wait();
+                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                    var responseTask = client.GetAsync("health");
+                    responseTask.Wait();
 
-                    var response = readTask.Result;
-                    if (response.Status == "success")
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
                     {
-                        health = true;
+                        var readTask = result.Content.ReadAsAsync<BaseResponse>();
+                        readTask.Wait();
+
+                        var response = readTask.Result;
+                        if (response.Status == "success")
+                        {
+                            health = true;
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+
+            }
+            
 
             return health;
         }

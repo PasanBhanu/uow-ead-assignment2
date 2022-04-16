@@ -2,6 +2,8 @@
 using Finance_App.Models;
 using Finance_App.REST;
 using System;
+using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Finance_App
@@ -66,6 +68,7 @@ namespace Finance_App
 
         private void LoadFormData(object sender, EventArgs e)
         {
+            backgroundWorker.RunWorkerAsync();
             LoadTransactions();
 
             // Show login form
@@ -161,6 +164,55 @@ namespace Finance_App
         {
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
+        }
+
+        private void ServerHealthCheck(object sender, DoWorkEventArgs e)
+        {
+            HealthApiClient healthApiClient = new HealthApiClient();
+            while (true)
+            {
+                bool ServerStatus = healthApiClient.GetHealth();
+                Variables.SetServerStatus(ServerStatus);
+                Console.WriteLine("Server Health : " + ServerStatus.ToString());
+                if (ServerStatus)
+                {
+                    // Server Online
+                    if (!Variables.CanGoOnline())
+                    {
+                        // Start Sync
+                        stlServer.Text = "Server : Connected - Pending Syncing";
+                        Console.WriteLine("Syncing Started");
+                        stlEvent.Text = "Syncting Starting";
+
+                        // Sync Categories
+                        CategoriesApiClient client = new CategoriesApiClient();
+                        Category[] categories = client.GetCategories();
+                        foreach (Category category in categories)
+                        {
+                            stlEvent.Text = "Syncting Category - " + category.Title;
+                            if (category.Id > 0)
+                            {
+                                // Update
+                                client.UpdateCategory(category);
+                            }
+                            else
+                            {
+                                // Create
+                                client.CreateCategory(category);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        stlServer.Text = "Server : Connected";
+                    }
+                } else
+                {
+                    stlServer.Text = "Server : Not Connected";
+                }
+
+                Thread.Sleep(5000);
+            }
         }
     }
 }

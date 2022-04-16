@@ -99,6 +99,7 @@ namespace Finance_App.Api
             }
             catch  (Exception ex)
             {
+                Variables.SetPendingSync();
                 transaction.Id = Variables.GetTransactionId();
                 response = store.CreateTransaction(transaction);
             }
@@ -131,7 +132,8 @@ namespace Finance_App.Api
             } 
             catch (Exception ex)
             {
-                response= store.UpdateTransaction(transaction);
+                Variables.SetPendingSync();
+                response = store.UpdateTransaction(transaction);
             }
 
             return response;
@@ -163,6 +165,7 @@ namespace Finance_App.Api
             }
             catch (Exception ex)
             {
+                Variables.SetPendingSync();
                 response = store.DeleteTransaction(id);
             }
 

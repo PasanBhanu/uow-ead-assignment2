@@ -52,8 +52,13 @@
             this.lblTotalWeeklyIncome = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.stlServer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stlEvent = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnViewCategories
@@ -273,11 +278,38 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Total Income";
             // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ServerHealthCheck);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stlServer,
+            this.stlEvent});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 448);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 9;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // stlServer
+            // 
+            this.stlServer.Name = "stlServer";
+            this.stlServer.Size = new System.Drawing.Size(89, 17);
+            this.stlServer.Text = "Server : Waiting";
+            // 
+            // stlEvent
+            // 
+            this.stlEvent.Name = "stlEvent";
+            this.stlEvent.Size = new System.Drawing.Size(0, 17);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 470);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listTransactions);
@@ -298,7 +330,10 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -327,6 +362,10 @@
         private System.Windows.Forms.Label lblTotalWeeklyIncome;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel stlServer;
+        private System.Windows.Forms.ToolStripStatusLabel stlEvent;
     }
 }
 

@@ -14,27 +14,33 @@ namespace Finance_App.Api
         {
             Category[] categories = null;
 
-            try
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var responseTask = client.GetAsync("categories");
-                    responseTask.Wait();
-
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<CategoriesResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var responseTask = client.GetAsync("categories");
+                        responseTask.Wait();
 
-                        var response = readTask.Result;
-                        categories = response.Data;
-                        store.GetCategories(categories);
+                        var result = responseTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<CategoriesResponse>();
+                            readTask.Wait();
+
+                            var response = readTask.Result;
+                            categories = response.Data;
+                            store.GetCategories(categories);
+                        }
                     }
                 }
-            } 
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    categories = store.GetCategories(null);
+                }
+            } else
             {
                 categories = store.GetCategories(null);
             }
@@ -99,6 +105,7 @@ namespace Finance_App.Api
             }
             catch (Exception ex)
             {
+                Variables.SetPendingSync();
                 category.Id = Variables.GetCategoryId();
                 response = store.CreateCategory(category);
             }
@@ -130,6 +137,7 @@ namespace Finance_App.Api
             }
             catch (Exception ex)
             {
+                Variables.SetPendingSync();
                 response = store.UpdateCategory(category);
             }
 
