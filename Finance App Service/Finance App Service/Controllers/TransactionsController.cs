@@ -76,7 +76,7 @@ namespace Finance_App_Service.Controllers
         [HttpPost("edit")]
         public BaseResponse Edit(int id, [FromBody] Transaction formBody)
         {
-            var transaction = _applicationDbCotext.Categories.FirstOrDefault(s => s.Id == id);
+            var transaction = _applicationDbCotext.Transactions.FirstOrDefault(s => s.Id == id);
             BaseResponse response = new BaseResponse();
             if (transaction != null)
             {

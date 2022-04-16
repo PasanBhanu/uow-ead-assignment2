@@ -1,20 +1,15 @@
-﻿using Finance_App.Models;
+﻿using Finance_App.Api;
+using Finance_App.Models;
+using Finance_App.REST;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Finance_App
 {
     public partial class ManageTransactionForm : Form
     {
-        DataStore DataStore = Variables.dataStore;
-        DataStore.TransactionsRow DataRow;
+        Dictionary<String, Category> categories = new Dictionary<String, Category>();
         Transaction transaction = new Transaction();
 
         public ManageTransactionForm(int id)
@@ -22,20 +17,21 @@ namespace Finance_App
             InitializeComponent();
 
             // Load categories from DB
-            DataTable tblCategories = DataStore.Tables["Categories"];
-            foreach (DataRow row in tblCategories.Rows)
+            CategoriesApiClient client = new CategoriesApiClient();
+            foreach (Category category in client.GetCategories())
             {
-                cmbCategory.Items.Add(row["Title"].ToString());
+                cmbCategory.Items.Add(category.Title);
+                categories.Add(category.Title, category);
             }
 
             // Load transaction object
-            DataRow = (DataStore.TransactionsRow)DataStore.Tables["Transactions"].Rows.Find(id);
-            // transaction.LoadDatasetRow(DataRow);
+            TransactionsApiClient transactionsApiClient = new TransactionsApiClient();
+            transaction = transactionsApiClient.GetTransaction(id);
 
             txtDescription.Text = transaction.Description;
             cmbTransactionType.Text = transaction.Type.ToString();
             txtAmount.Text = transaction.Amount.ToString();
-            cmbCategory.Text = transaction.CategoryName;
+            cmbCategory.Text = transaction.Category.Title;
             chkRecurring.Checked = transaction.IsReccuring;
             dtpDate.Value = transaction.Date;
         }
@@ -55,17 +51,28 @@ namespace Finance_App
             transaction.Date = DateTime.Parse(dtpDate.Text);
             transaction.IsReccuring = chkRecurring.Checked;
             transaction.Type = cmbTransactionType.SelectedItem.ToString();
-            // Get category id by title
-            DataTable tblCategories = DataStore.Tables["Categories"];
-            DataRow[] results = tblCategories.Select("Title = '" + cmbCategory.Text + "'");
-            foreach (DataRow row in results)
-            {
-                transaction.CategoryId = (int)row["Id"];
-            }
-            //transaction.UpdateDatasetRow(DataRow);
+            transaction.CategoryId = categories[cmbCategory.Text].Id;
 
-            MessageBox.Show("Transaction updated successfully!", "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Close();
+            TransactionsApiClient client = new TransactionsApiClient();
+            BaseResponse response = client.UpdateTransaction(transaction);
+            if (response == null)
+            {
+                MessageBox.Show("Transaction update failed!", "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+            else
+            {
+                if (response.Status == "success")
+                {
+                    MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Close();
+                }
+            }
         }
 
         private void AmountInlineValidation(object sender, KeyPressEventArgs e)

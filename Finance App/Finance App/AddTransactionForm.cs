@@ -1,4 +1,6 @@
-﻿using Finance_App.Models;
+﻿using Finance_App.Api;
+using Finance_App.Models;
+using Finance_App.REST;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +15,18 @@ namespace Finance_App
 {
     public partial class AddTransactionForm : Form
     {
-        DataStore DataStore = Variables.dataStore;
+        Dictionary<String, Category> categories = new Dictionary<String, Category>();
 
         public AddTransactionForm()
         {
             InitializeComponent();
 
             // Load categories from DB
-            DataTable tblCategories = DataStore.Tables["Categories"];
-            foreach (DataRow row in tblCategories.Rows)
+            CategoriesApiClient client = new CategoriesApiClient();
+            foreach (Category category in client.GetCategories())
             {
-                cmbCategory.Items.Add(row["Title"].ToString());
+                cmbCategory.Items.Add(category.Title);
+                categories.Add(category.Title, category);
             }
         }
 
@@ -43,17 +46,29 @@ namespace Finance_App
             transaction.Date = DateTime.Parse(dtpDate.Text);
             transaction.IsReccuring = chkRecurring.Checked;
             transaction.Type = cmbTransactionType.SelectedItem.ToString();
-            // Get category id by title
-            DataTable tblCategories = DataStore.Tables["Categories"];
-            DataRow[] results = tblCategories.Select("Title = '" + cmbCategory.Text +"'");
-            foreach (DataRow row in results)
-            {
-                transaction.CategoryId = (int)row["Id"];
-            }
-            //transaction.CreateDatasetRow(DataStore);
+            transaction.CategoryId = categories[cmbCategory.Text].Id;
 
-            MessageBox.Show("Transaction added successfully!", "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Close();
+            TransactionsApiClient client = new TransactionsApiClient();
+            BaseResponse response = client.CreateTransaction(transaction);
+            if (response == null)
+            {
+                MessageBox.Show("Transaction add failed!", "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+            else
+            {
+                if (response.Status == "success")
+                {
+                    MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Close();
+                }
+
+            }
         }
 
         private void AmountInlineValidation(object sender, KeyPressEventArgs e)

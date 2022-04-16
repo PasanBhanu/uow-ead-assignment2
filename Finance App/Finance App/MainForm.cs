@@ -1,23 +1,13 @@
 ﻿using Finance_App.Api;
 using Finance_App.Models;
-using Newtonsoft.Json;
+using Finance_App.REST;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Finance_App
 {
     public partial class MainForm : Form
     {
-        DataStore DataStore = Variables.dataStore;
-
         public MainForm()
         {
             InitializeComponent();
@@ -52,7 +42,23 @@ namespace Finance_App
             DialogResult dialogResult = MessageBox.Show("Are you sure do you want to delete this transaction?", "Simply Finance App", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                DataStore.Tables["Transactions"].Rows.Remove(DataStore.Tables["Transactions"].Rows.Find(id));
+                TransactionsApiClient client = new TransactionsApiClient();
+                BaseResponse response = client.DeleteTransaction(id);
+                if (response == null)
+                {
+                    MessageBox.Show("Transaction delete failed!", "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (response.Status == "success")
+                    {
+                        MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.Message, "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
                 LoadTransactions();
             }
         }
