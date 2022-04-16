@@ -25,7 +25,6 @@ namespace Finance_App_Service.Controllers
         public BaseResponse Index()
         {
             IEnumerable<Transaction> transactions = _applicationDbCotext.Transactions.ToList();
-            //IEnumerable<Category> categories = _applicationDbCotext.Categories.Select(x => new Category{Id=x.Id, Title=x.Title, Type=x.Type}).ToList();
             IEnumerable<Category> categories = _applicationDbCotext.Categories.ToList();
             foreach (Category category in categories)
             {

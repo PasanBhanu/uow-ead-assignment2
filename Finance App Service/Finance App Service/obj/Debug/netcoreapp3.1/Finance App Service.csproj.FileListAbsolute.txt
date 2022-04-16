@@ -1,9 +1,3 @@
-D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.AssemblyReference.cache
-D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.GeneratedMSBuildEditorConfig.editorconfig
-D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.AssemblyInfoInputs.cache
-D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.AssemblyInfo.cs
-D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.CoreCompileInputs.cache
-D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.MvcApplicationPartsAssemblyInfo.cache
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\appsettings.json
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\Finance App Service.exe
@@ -54,6 +48,12 @@ D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.AssemblyReference.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.AssemblyInfoInputs.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.AssemblyInfo.cs
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.CoreCompileInputs.cache
+D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.MvcApplicationPartsAssemblyInfo.cache
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\staticwebassets\Finance App Service.StaticWebAssets.Manifest.cache
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.RazorTargetAssemblyInfo.cache
 D:\Education\EAD\Assignment 2\Finance App Service\Finance App Service\obj\Debug\netcoreapp3.1\Finance App Service.csproj.CopyComplete
