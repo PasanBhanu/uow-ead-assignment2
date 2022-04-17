@@ -146,9 +146,28 @@ namespace Finance_App.Xml
             xmlDoc.Descendants("Transaction")
                     .Where(m => int.Parse(m.Attribute("Id").Value) == id)
                     .Remove();
+
+            // Need to remember server fetched transactions only
+            if (id > 0)
+            {
+                xmlDoc.Add("Deletions", new XElement("DeletedTransaction"), new XAttribute("Id", id));
+            }
+
             response.Status = "success";
             response.Message = "Transaction deleted successfully";
             return response;
+        }
+
+        public int[] GetDeletedTransactions()
+        {
+            int[] deletedTransactions;
+
+            var xmlDoc = XElement.Load("Store.xml");
+            deletedTransactions = xmlDoc.Descendants("DeletedTransaction")
+                .Select(m => int.Parse(m.Attribute("Id").ToString()))
+                .ToArray();
+
+            return deletedTransactions;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Finance_App.Api
     internal class CategoriesApiClient
     {
         CategoryStore store = new CategoryStore();
+        StoreUtil storeUtil = new StoreUtil();
 
         public Category[] GetCategories()
         {
@@ -52,31 +53,37 @@ namespace Finance_App.Api
         {
             Category category = null;
 
-            try
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var responseTask = client.GetAsync("categories/details?id=" + id);
-                    responseTask.Wait();
-
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<CategoryResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var responseTask = client.GetAsync("categories/details?id=" + id);
+                        responseTask.Wait();
 
-                        var response = readTask.Result;
-                        Category data = response.Data;
-                        category = data;
+                        var result = responseTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<CategoryResponse>();
+                            readTask.Wait();
+
+                            var response = readTask.Result;
+                            Category data = response.Data;
+                            category = data;
+                        }
                     }
                 }
-            } 
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    category = store.GetCategory(id);
+                }
+            }
+            else
             {
                 category = store.GetCategory(id);
             }
-            
 
             return category;
         }
@@ -84,31 +91,41 @@ namespace Finance_App.Api
         public BaseResponse CreateCategory(Category category)
         {
             BaseResponse response = null;
-            try
+
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var postTask = client.PostAsJsonAsync<Category>("categories/create", category);
-                    postTask.Wait();
-
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<BaseResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var postTask = client.PostAsJsonAsync<Category>("categories/create", category);
+                        postTask.Wait();
 
-                        response = readTask.Result;
-                        store.CreateCategory(category);
+                        var result = postTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<BaseResponse>();
+                            readTask.Wait();
+
+                            response = readTask.Result;
+                            store.CreateCategory(category);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    storeUtil.StorePendingSyncFlag();
+                    category.Id = Variables.GetCategoryId();
+                    response = store.CreateCategory(category);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Variables.SetPendingSync();
+                storeUtil.StorePendingSyncFlag();
                 category.Id = Variables.GetCategoryId();
                 response = store.CreateCategory(category);
-            }
+            } 
 
             return response;
         }
@@ -116,28 +133,37 @@ namespace Finance_App.Api
         public BaseResponse UpdateCategory(Category category)
         {
             BaseResponse response = null;
-            try
+
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var postTask = client.PostAsJsonAsync<Category>("categories/edit?id=" + category.Id, category);
-                    postTask.Wait();
-
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<BaseResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var postTask = client.PostAsJsonAsync<Category>("categories/edit?id=" + category.Id, category);
+                        postTask.Wait();
 
-                        response = readTask.Result;
-                        store.UpdateCategory(category);
+                        var result = postTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<BaseResponse>();
+                            readTask.Wait();
+
+                            response = readTask.Result;
+                            store.UpdateCategory(category);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    storeUtil.StorePendingSyncFlag();
+                    response = store.UpdateCategory(category);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Variables.SetPendingSync();
+                storeUtil.StorePendingSyncFlag();
                 response = store.UpdateCategory(category);
             }
 

@@ -26,16 +26,9 @@ namespace Finance_App
             ServerOnline = status;
         }
 
-        public static bool CheckServerHealth()
+        public static void SetPendingSync(bool pendingSync)
         {
-            HealthApiClient client = new HealthApiClient();
-            ServerOnline = client.GetHealth();
-            return ServerOnline;
-        }
-
-        public static void SetPendingSync()
-        {
-            PendingSync = true;
+            PendingSync = pendingSync;
         }
 
         public static bool CanGoOnline()

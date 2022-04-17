@@ -13,6 +13,13 @@ namespace Finance_App
             ReportsApiClient client = new ReportsApiClient();
             ReportResponse response = client.GetReport();
 
+            if (response == null)
+            {
+                MessageBox.Show("Server connection failed. Report generation not available at the moment!", "Simply Finance App", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Close();
+                return;
+            }
+
             foreach (ReportResponse.DailyRecord report in response.DailyRecords)
             {
                 string[] listItem = new string[3];

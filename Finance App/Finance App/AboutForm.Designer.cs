@@ -72,7 +72,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(337, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "7SENG001C Enterprise Application Development – CWK 1 (2021/22) ";
+            this.label4.Text = "7SENG001C Enterprise Application Development – CWK 2 (2021/22) ";
             // 
             // pictureBox1
             // 

@@ -10,23 +10,30 @@ namespace Finance_App.Api
         {
             ReportResponse response = new ReportResponse();
 
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                var responseTask = client.GetAsync("reports");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    var readTask = result.Content.ReadAsAsync<ReportResponse>();
-                    readTask.Wait();
+                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                    var responseTask = client.GetAsync("reports");
+                    responseTask.Wait();
 
-                    response = readTask.Result;
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsAsync<ReportResponse>();
+                        readTask.Wait();
+
+                        response = readTask.Result;
+                    }
                 }
-            }
 
-            return response;
+                return response;
+            } 
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

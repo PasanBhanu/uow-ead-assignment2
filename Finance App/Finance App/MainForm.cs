@@ -1,7 +1,9 @@
 ﻿using Finance_App.Api;
 using Finance_App.Models;
 using Finance_App.REST;
+using Finance_App.Xml;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
@@ -68,7 +70,16 @@ namespace Finance_App
 
         private void LoadFormData(object sender, EventArgs e)
         {
+            // Load xml
+            StoreUtil storeUtl = new StoreUtil();
+            storeUtl.CheckPendingSyncFlagEnabled();
+
+            Console.WriteLine("Can Go Online : " + Variables.CanGoOnline().ToString());
+
+            // Start worker
             backgroundWorker.RunWorkerAsync();
+
+            // Load transactions
             LoadTransactions();
 
             // Show login form
@@ -143,7 +154,10 @@ namespace Finance_App
         private void ViewReport(object sender, EventArgs e)
         {
             ReportForm reportForm = new ReportForm();
-            reportForm.ShowDialog();
+            if (!reportForm.IsDisposed)
+            {
+                reportForm.ShowDialog();
+            }
         }
 
         private void DisplayTransactionOptions(object sender, EventArgs e)
@@ -184,23 +198,107 @@ namespace Finance_App
                         Console.WriteLine("Syncing Started");
                         stlEvent.Text = "Syncting Starting";
 
+                        // Remove pending flags
+                        StoreUtil storeUtil = new StoreUtil();
+                        storeUtil.RemovePendingSyncFlag();
+
                         // Sync Categories
-                        CategoriesApiClient client = new CategoriesApiClient();
-                        Category[] categories = client.GetCategories();
+                        CategoryStore categoryStore = new CategoryStore();
+                        CategoriesApiClient categoriesApiClient = new CategoriesApiClient();
+
+                        // Gat categories from xml
+                        Category[] categories = categoryStore.GetCategories(null);
+
                         foreach (Category category in categories)
                         {
                             stlEvent.Text = "Syncting Category - " + category.Title;
                             if (category.Id > 0)
                             {
                                 // Update
-                                client.UpdateCategory(category);
+                                categoriesApiClient.UpdateCategory(category);
                             }
                             else
                             {
                                 // Create
-                                client.CreateCategory(category);
+                                Category _category = new Category
+                                {
+                                    Title = category.Title,
+                                    Type = category.Type,
+                                };
+                                categoriesApiClient.CreateCategory(_category);
                             }
                         }
+                        
+                        // Load latest category data
+                        Dictionary<string, int> categoryMap = new Dictionary<string, int>();
+                        Category[] categoriesLatest = categoriesApiClient.GetCategories();
+                        foreach (Category category in categoriesLatest)
+                        {
+                            categoryMap.Add(category.Title, category.Id);
+                        }
+
+                        // Sync Transactions
+                        TransactionStore transactionStore = new TransactionStore();
+                        TransactionsApiClient transactionsApiClient = new TransactionsApiClient();
+
+                        // Get transactions from xml
+                        Transaction[] transactions = transactionStore.GetTransactions(null);
+
+                        foreach (Transaction transaction in transactions)
+                        {
+                            stlEvent.Text = "Syncting Transaction - " + transaction.Description;
+                            if (transaction.Id > 0)
+                            {
+                                // Update transaction
+                                Transaction _transaction = new Transaction
+                                {
+                                    Id = transaction.Id,
+                                    Description = transaction.Description,
+                                    Type = transaction.Type,
+                                    Amount = transaction.Amount,
+                                    IsReccuring = transaction.IsReccuring,
+                                    Date = transaction.Date,
+                                    CategoryId = categoryMap[transaction.Category.Title],
+                                    Category = new Category
+                                    {
+                                        Id = categoryMap[transaction.Category.Title],
+                                        Type = transaction.Category.Type,
+                                        Title = transaction.Category.Title
+                                    }
+                                };
+                                transactionsApiClient.UpdateTransaction(_transaction);
+                            }
+                            else
+                            {
+                                // Create transaction
+                                Transaction _transaction = new Transaction
+                                {
+                                    Description = transaction.Description,
+                                    Type = transaction.Type,
+                                    Amount = transaction.Amount,
+                                    IsReccuring = transaction.IsReccuring,
+                                    Date = transaction.Date,
+                                    CategoryId = categoryMap[transaction.Category.Title]
+                                };
+                                transactionsApiClient.CreateTransaction(_transaction);
+                            }
+                        }
+
+                        // Find deleted transactions
+                        int[] deletedTransactionIds = transactionStore.GetDeletedTransactions();
+                        if (deletedTransactionIds != null)
+                        {
+                            foreach (int transactionId in deletedTransactionIds)
+                            {
+                                stlEvent.Text = "Deleting Transaction - " + transactionId;
+                                transactionsApiClient.DeleteTransaction(transactionId);
+                            }
+                        }
+
+                        stlEvent.Text = "";
+
+                        // Load transactions
+                        backgroundWorker.ReportProgress(1, null);
                     }
                     else
                     {
@@ -213,6 +311,11 @@ namespace Finance_App
 
                 Thread.Sleep(5000);
             }
+        }
+
+        private void UpdateUI(object sender, ProgressChangedEventArgs e)
+        {
+            LoadTransactions();
         }
     }
 }

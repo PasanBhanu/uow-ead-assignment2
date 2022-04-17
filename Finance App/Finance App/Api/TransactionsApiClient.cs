@@ -9,32 +9,39 @@ namespace Finance_App.Api
     internal class TransactionsApiClient
     {
         TransactionStore store = new TransactionStore();
-
+        StoreUtil storeUtil = new StoreUtil();
         public Transaction[] GetTransactions()
         {
             Transaction[] transactions = null;
 
-            try
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var responseTask = client.GetAsync("transactions");
-                    responseTask.Wait();
-
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<TransactionsResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var responseTask = client.GetAsync("transactions");
+                        responseTask.Wait();
 
-                        var response = readTask.Result;
-                        transactions = response.Data;
-                        store.GetTransactions(transactions);
+                        var result = responseTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<TransactionsResponse>();
+                            readTask.Wait();
+
+                            var response = readTask.Result;
+                            transactions = response.Data;
+                            store.GetTransactions(transactions);
+                        }
                     }
                 }
-            } 
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    transactions = store.GetTransactions(null);
+                }
+            }
+            else
             {
                 transactions = store.GetTransactions(null);
             }
@@ -46,26 +53,32 @@ namespace Finance_App.Api
         {
             Transaction transaction = null;
 
-            try
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var responseTask = client.GetAsync("transactions/details?id=" + id);
-                    responseTask.Wait();
-
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<TransactionResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var responseTask = client.GetAsync("transactions/details?id=" + id);
+                        responseTask.Wait();
 
-                        var response = readTask.Result;
-                        transaction = response.Data;
+                        var result = responseTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<TransactionResponse>();
+                            readTask.Wait();
+
+                            var response = readTask.Result;
+                            transaction = response.Data;
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    transaction = store.GetTransaction(id);
+                }
+            } else
             {
                 transaction = store.GetTransaction(id);
             }
@@ -77,29 +90,38 @@ namespace Finance_App.Api
         {
             BaseResponse response = null;
 
-            try
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var postTask = client.PostAsJsonAsync<Transaction>("transactions/create", transaction);
-                    postTask.Wait();
-
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<BaseResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var postTask = client.PostAsJsonAsync<Transaction>("transactions/create", transaction);
+                        postTask.Wait();
 
-                        response = readTask.Result;
-                        store.CreateTransaction(transaction);
-                        return response;
+                        var result = postTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<BaseResponse>();
+                            readTask.Wait();
+
+                            response = readTask.Result;
+                            store.CreateTransaction(transaction);
+                            return response;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    storeUtil.StorePendingSyncFlag();
+                    transaction.Id = Variables.GetTransactionId();
+                    response = store.CreateTransaction(transaction);
+                }
             }
-            catch  (Exception ex)
+            else
             {
-                Variables.SetPendingSync();
+                storeUtil.StorePendingSyncFlag();
                 transaction.Id = Variables.GetTransactionId();
                 response = store.CreateTransaction(transaction);
             }
@@ -110,29 +132,37 @@ namespace Finance_App.Api
         public BaseResponse UpdateTransaction(Transaction transaction)
         {
             BaseResponse response = null;
-            try
+
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var postTask = client.PostAsJsonAsync<Transaction>("transactions/edit?id=" + transaction.Id, transaction);
-                    postTask.Wait();
-
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<BaseResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var postTask = client.PostAsJsonAsync<Transaction>("transactions/edit?id=" + transaction.Id, transaction);
+                        postTask.Wait();
 
-                        response = readTask.Result;
-                        store.UpdateTransaction(transaction);
-                        return response;
+                        var result = postTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<BaseResponse>();
+                            readTask.Wait();
+
+                            response = readTask.Result;
+                            store.UpdateTransaction(transaction);
+                            return response;
+                        }
                     }
                 }
-            } 
-            catch (Exception ex)
+                catch (Exception ex)
+                {
+                    storeUtil.StorePendingSyncFlag();
+                    response = store.UpdateTransaction(transaction);
+                }
+            }else
             {
-                Variables.SetPendingSync();
+                storeUtil.StorePendingSyncFlag();
                 response = store.UpdateTransaction(transaction);
             }
 
@@ -143,29 +173,38 @@ namespace Finance_App.Api
         {
             BaseResponse response = null;
 
-            try
+            if (Variables.IsAppOnline())
             {
-                using (var client = new HttpClient())
+
+                try
                 {
-                    client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
-                    var postTask = client.PostAsJsonAsync<Transaction>("transactions/delete?id=" + id, null);
-                    postTask.Wait();
-
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        var readTask = result.Content.ReadAsAsync<BaseResponse>();
-                        readTask.Wait();
+                        client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                        var postTask = client.PostAsJsonAsync<Transaction>("transactions/delete?id=" + id, null);
+                        postTask.Wait();
 
-                        response = readTask.Result;
-                        store.DeleteTransaction(id);
-                        return response;
+                        var result = postTask.Result;
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var readTask = result.Content.ReadAsAsync<BaseResponse>();
+                            readTask.Wait();
+
+                            response = readTask.Result;
+                            store.DeleteTransaction(id);
+                            return response;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    storeUtil.StorePendingSyncFlag();
+                    response = store.DeleteTransaction(id);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Variables.SetPendingSync();
+                storeUtil.StorePendingSyncFlag();
                 response = store.DeleteTransaction(id);
             }
 
